@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Check Flight Status</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <style>
+        .main-container {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        .status-container {
+            max-width: 700px;
+            margin: 20px auto;
+        }
+    </style>
+</head>
+<body>
+
+  <!-- Navbar -->
+  <nav class="navbar navbar-expand-lg navbar-light bg-light shadow-sm">
+    <div class="container">
+        <a class="navbar-brand" href="index.html">Flight Manager</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav ms-auto">
+                <!-- Flights Dropdown -->
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="flightsDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        Flights
+                    </a>
+                    <ul class="dropdown-menu" aria-labelledby="flightsDropdown">
+                        <li><a class="dropdown-item" href="editStatus.html">Edit Flight Status</a></li>
+                        <li><a class="dropdown-item" href="checkStatus.html">Check Flight Status</a></li>
+                        <li><a class="dropdown-item" href="gateAssignment.html">Gate Assignment</a></li>
+                    </ul>
+                </li>
+
+                <!-- Passenger Management Dropdown -->
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="passengerDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        Passenger Management
+                    </a>
+                    <ul class="dropdown-menu" aria-labelledby="passengerDropdown">
+                        <li><a class="dropdown-item" href="checkIn.html">Check-in</a></li>
+                        <li><a class="dropdown-item" href="baggageTracking.html">Baggage Tracking</a></li>
+                        <li><a class="dropdown-item" href="loyaltyProgram.html">Loyalty Program</a></li>
+                    </ul>
+                </li>
+
+                <!-- Staff Management Dropdown -->
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="staffDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        Staff Management
+                    </a>
+                    <ul class="dropdown-menu" aria-labelledby="staffDropdown">
+                        <li><a class="dropdown-item" href="staffScheduling.html">Scheduling</a></li>
+                        <li><a class="dropdown-item" href="staffPayroll.html">Payroll</a></li>
+                        <li><a class="dropdown-item" href="staffCommunication.html">Staff Communication</a></li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
+
+<!-- Main Content -->
+<div class="main-container">
+    <h2 class="text-center my-4">Check Flight Status</h2>
+
+    <!-- Flight Search -->
+    <div class="status-container">
+        <h4 class="text-center mb-4">Search Flight Status</h4>
+        <form id="searchForm">
+            <div class="mb-3">
+                <label for="searchQuery" class="form-label">Enter Flight Number, Airline, or City</label>
+                <input type="text" class="form-control" id="searchQuery" placeholder="Search by flight number, city, or airline" required>
+            </div>
+            <div class="d-grid">
+                <button type="submit" class="btn btn-primary">Search</button>
+            </div>
+        </form>
+    </div>
+
+    <!-- Flight Status Result -->
+    <div id="statusResult" class="d-none">
+        <h4>Flight Status:</h4>
+        <table class="table table-bordered">
+            <thead>
+                <tr>
+                    <th>Flight Number</th>
+                    <th>Status</th>
+                    <th>Departure Time</th>
+                    <th>Arrival Time</th>
+                </tr>
+            </thead>
+            <tbody id="statusTable">
+                <!-- Flight data will be displayed here -->
+            </tbody>
+        </table>
+    </div>
+
+    <!-- No Results Message -->
+    <div id="noResults" class="alert alert-warning d-none">
+        No flight found matching your search query.
+    </div>
+</div>
+
+<!-- JavaScript -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+<script src="app.js"></script>
+<script>
+// Sample flight data array to simulate the flight information (this would typically come from a server)
+const flights = [
+    { flightNumber: 'AA101', status: 'On Time', departure: '2024-11-20T10:00', arrival: '2024-11-20T12:00' },
+    { flightNumber: 'BB202', status: 'Delayed', departure: '2024-11-21T14:30', arrival: '2024-11-21T17:00' },
+    { flightNumber: 'CC303', status: 'Cancelled', departure: '2024-11-22T08:00', arrival: '2024-11-22T10:30' }
+];
+
+// Function to display the flight status in the table
+function displayFlightStatus(flights) {
+    const statusTable = document.getElementById('statusTable');
+    const statusResult = document.getElementById('statusResult');
+    const noResults = document.getElementById('noResults');
+
+    // Clear previous search results
+    statusTable.innerHTML = '';
+    noResults.classList.add('d-none');  // Hide no results message
+    statusResult.classList.remove('d-none');  // Show the result section
+
+    if (flights.length === 0) {
+        noResults.classList.remove('d-none');  // Show no results message if no flights match
+        statusResult.classList.add('d-none');
+    } else {
+        flights.forEach(flight => {
+            const row = document.createElement('tr');
+            row.innerHTML = `
+                <td>${flight.flightNumber}</td>
+                <td>${flight.status}</td>
+                <td>${new Date(flight.departure).toLocaleString()}</td>
+                <td>${new Date(flight.arrival).toLocaleString()}</td>
+            `;
+            statusTable.appendChild(row);
+        });
+    }
+}
+
+// Function to handle the search form submission
+document.getElementById('searchForm').addEventListener('submit', function(event) {
+    event.preventDefault();
+    
+    const query = document.getElementById('searchQuery').value.toLowerCase();
+    
+    // Filter flights based on the search query (search by flight number, status, or city)
+    const filteredFlights = flights.filter(flight => 
+        flight.flightNumber.toLowerCase().includes(query) ||
+        flight.status.toLowerCase().includes(query) ||
+        flight.departure.toLowerCase().includes(query)
+    );
+    
+    // Display the filtered flights
+    displayFlightStatus(filteredFlights);
+});
+</script>
+
+</body>
+</html>

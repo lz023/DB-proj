@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Staff Payroll</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <style>
+        .main-container {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        .payroll-container {
+            max-width: 700px;
+            margin: 20px auto;
+        }
+    </style>
+</head>
+<body>
+
+  <!-- Navbar -->
+  <nav class="navbar navbar-expand-lg navbar-light bg-light shadow-sm">
+    <div class="container">
+        <a class="navbar-brand" href="index.html">Flight Manager</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav ms-auto">
+                <!-- Flights Dropdown -->
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="flightsDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        Flights
+                    </a>
+                    <ul class="dropdown-menu" aria-labelledby="flightsDropdown">
+                        <li><a class="dropdown-item" href="editStatus.html">Edit Flight Status</a></li>
+                        <li><a class="dropdown-item" href="checkStatus.html">Check Flight Status</a></li>
+                        <li><a class="dropdown-item" href="gateAssignment.html">Gate Assignment</a></li>
+                    </ul>
+                </li>
+
+                <!-- Passenger Management Dropdown -->
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="passengerDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        Passenger Management
+                    </a>
+                    <ul class="dropdown-menu" aria-labelledby="passengerDropdown">
+                        <li><a class="dropdown-item" href="checkIn.html">Check-in</a></li>
+                        <li><a class="dropdown-item" href="baggageTracking.html">Baggage Tracking</a></li>
+                        <li><a class="dropdown-item" href="loyaltyProgram.html">Loyalty Program</a></li>
+                    </ul>
+                </li>
+
+                <!-- Staff Management Dropdown -->
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="staffDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        Staff Management
+                    </a>
+                    <ul class="dropdown-menu" aria-labelledby="staffDropdown">
+                        <li><a class="dropdown-item" href="staffScheduling.html">Scheduling</a></li>
+                        <li><a class="dropdown-item" href="staffPayroll.html">Payroll</a></li>
+                        <li><a class="dropdown-item" href="staffCommunication.html">Staff Communication</a></li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
+
+<!-- Main Content -->
+<div class="main-container">
+    <h2 class="text-center my-4">Staff Payroll</h2>
+
+    <!-- Payroll Search -->
+    <div class="payroll-container">
+        <h4 class="text-center mb-4">Search Staff Payroll</h4>
+        <form id="searchForm">
+            <div class="mb-3">
+                <label for="searchQuery" class="form-label">Enter Staff Name or Role</label>
+                <input type="text" class="form-control" id="searchQuery" placeholder="Search by staff name or role" required>
+            </div>
+            <div class="d-grid">
+                <button type="submit" class="btn btn-primary">Search</button>
+            </div>
+        </form>
+    </div>
+
+    <!-- Staff Payroll Result -->
+    <div id="payrollResult" class="d-none">
+        <h4>Staff Payroll:</h4>
+        <table class="table table-bordered">
+            <thead>
+                <tr>
+                    <th>Staff Name</th>
+                    <th>Role</th>
+                    <th>Salary</th>
+                    <th>Bonus</th>
+                    <th>Total Pay</th>
+                </tr>
+            </thead>
+            <tbody id="payrollTable">
+                <!-- Staff payroll data will be displayed here -->
+            </tbody>
+        </table>
+    </div>
+
+    <!-- No Results Message -->
+    <div id="noResults" class="alert alert-warning d-none">
+        No staff found matching your search query.
+    </div>
+</div>
+
+<!-- JavaScript -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+<script src="app.js"></script>
+<script>
+// Sample staff payroll data array to simulate the payroll (this would typically come from a server)
+const staffPayroll = [
+    { name: 'John Doe', role: 'Pilot', salary: 6000, bonus: 1000 },
+    { name: 'Jane Smith', role: 'Flight Attendant', salary: 3500, bonus: 500 },
+    { name: 'Mark Johnson', role: 'Ground Crew', salary: 2500, bonus: 300 }
+];
+
+// Function to calculate total pay
+function calculateTotalPay(salary, bonus) {
+    return salary + bonus;
+}
+
+// Function to display the staff payroll in the table
+function displayStaffPayroll(staffPayroll) {
+    const payrollTable = document.getElementById('payrollTable');
+    const payrollResult = document.getElementById('payrollResult');
+    const noResults = document.getElementById('noResults');
+
+    // Clear previous search results
+    payrollTable.innerHTML = '';
+    noResults.classList.add('d-none');  // Hide no results message
+    payrollResult.classList.remove('d-none');  // Show the result section
+
+    if (staffPayroll.length === 0) {
+        noResults.classList.remove('d-none');  // Show no results message if no staff match
+        payrollResult.classList.add('d-none');
+    } else {
+        staffPayroll.forEach(staff => {
+            const row = document.createElement('tr');
+            row.innerHTML = `
+                <td>${staff.name}</td>
+                <td>${staff.role}</td>
+                <td>$${staff.salary}</td>
+                <td>$${staff.bonus}</td>
+                <td>$${calculateTotalPay(staff.salary, staff.bonus)}</td>
+            `;
+            payrollTable.appendChild(row);
+        });
+    }
+}
+
+// Function to handle the search form submission
+document.getElementById('searchForm').addEventListener('submit', function(event) {
+    event.preventDefault();
+    
+    const query = document.getElementById('searchQuery').value.toLowerCase();
+    
+    // Filter staff payroll based on the search query (search by name or role)
+    const filteredPayroll = staffPayroll.filter(staff => 
+        staff.name.toLowerCase().includes(query) ||
+        staff.role.toLowerCase().includes(query)
+    );
+    
+    // Display the filtered staff payroll
+    displayStaffPayroll(filteredPayroll);
+});
+</script>
+
+</body>
+</html>

@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edit Flight Status</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <!-- Navbar -->
+  <nav class="navbar navbar-expand-lg navbar-light bg-light shadow-sm">
+    <div class="container">
+        <a class="navbar-brand" href="index.html">Flight Manager</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav ms-auto">
+                <!-- Flights Dropdown -->
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="flightsDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        Flights
+                    </a>
+                    <ul class="dropdown-menu" aria-labelledby="flightsDropdown">
+                        <li><a class="dropdown-item" href="editStatus.html">Edit Flight Status</a></li>
+                        <li><a class="dropdown-item" href="checkStatus.html">Check Flight Status</a></li>
+                        <li><a class="dropdown-item" href="gateAssignment.html">Gate Assignment</a></li>
+                    </ul>
+                </li>
+
+                <!-- Passenger Management Dropdown -->
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="passengerDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        Passenger Management
+                    </a>
+                    <ul class="dropdown-menu" aria-labelledby="passengerDropdown">
+                        <li><a class="dropdown-item" href="checkIn.html">Check-in</a></li>
+                        <li><a class="dropdown-item" href="baggageTracking.html">Baggage Tracking</a></li>
+                        <li><a class="dropdown-item" href="loyaltyProgram.html">Loyalty Program</a></li>
+                    </ul>
+                </li>
+
+                <!-- Staff Management Dropdown -->
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="staffDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        Staff Management
+                    </a>
+                    <ul class="dropdown-menu" aria-labelledby="staffDropdown">
+                        <li><a class="dropdown-item" href="staffScheduling.html">Scheduling</a></li>
+                        <li><a class="dropdown-item" href="staffPayroll.html">Payroll</a></li>
+                        <li><a class="dropdown-item" href="staffCommunication.html">Staff Communication</a></li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
+
+
+<!-- Main Content -->
+<div class="container my-5">
+    <h2>Edit Flight Status</h2>
+
+    <!-- Flight Form (Add / Update) -->
+    <div class="mb-4">
+        <h4>Add / Update Flight</h4>
+        <form id="flightForm">
+            <div class="mb-3">
+                <label for="flightNumber" class="form-label">Flight Number</label>
+                <input type="text" class="form-control" id="flightNumber" placeholder="Enter Flight Number" required>
+            </div>
+            <div class="mb-3">
+                <label for="status" class="form-label">Flight Status</label>
+                <select class="form-select" id="status" required>
+                    <option value="on-time">On Time</option>
+                    <option value="delayed">Delayed</option>
+                    <option value="cancelled">Cancelled</option>
+                </select>
+            </div>
+            <div class="mb-3">
+                <label for="departure" class="form-label">Departure Time</label>
+                <input type="datetime-local" class="form-control" id="departure" required>
+            </div>
+            <button type="submit" class="btn btn-primary">Add / Update Flight</button>
+        </form>
+    </div>
+
+    <!-- Flight List (Display Flights) -->
+    <h4>Existing Flights</h4>
+    <table class="table table-bordered">
+        <thead>
+            <tr>
+                <th>Flight Number</th>
+                <th>Status</th>
+                <th>Departure Time</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody id="flightTable">
+            <!-- Flight rows will go here -->
+        </tbody>
+    </table>
+</div>
+
+<!-- JavaScript -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+<script src="app.js"></script>
+<script>
+// Sample flight data array to simulate the list of flights
+let flights = [
+    { flightNumber: 'AA101', status: 'On Time', departure: '2024-11-20T10:00' },
+    { flightNumber: 'BB202', status: 'Delayed', departure: '2024-11-21T14:30' }
+];
+
+// Function to display flights in the table
+function displayFlights() {
+    const flightTable = document.getElementById('flightTable');
+    flightTable.innerHTML = '';  // Clear the table before adding new rows
+    flights.forEach((flight, index) => {
+        const row = document.createElement('tr');
+        row.innerHTML = `
+            <td>${flight.flightNumber}</td>
+            <td>${flight.status}</td>
+            <td>${new Date(flight.departure).toLocaleString()}</td>
+            <td>
+                <button class="btn btn-warning btn-sm" onclick="editFlight(${index})">Edit</button>
+                <button class="btn btn-danger btn-sm" onclick="deleteFlight(${index})">Delete</button>
+            </td>
+        `;
+        flightTable.appendChild(row);
+    });
+}
+
+// Function to add or update flight
+document.getElementById('flightForm').addEventListener('submit', function(event) {
+    event.preventDefault();
+
+    const flightNumber = document.getElementById('flightNumber').value;
+    const status = document.getElementById('status').value;
+    const departure = document.getElementById('departure').value;
+
+    // Check if the flight already exists
+    const existingFlightIndex = flights.findIndex(flight => flight.flightNumber === flightNumber);
+    
+    if (existingFlightIndex === -1) {
+        // Add new flight
+        flights.push({ flightNumber, status, departure });
+    } else {
+        // Update existing flight
+        flights[existingFlightIndex] = { flightNumber, status, departure };
+    }
+
+    // Clear the form fields
+    document.getElementById('flightNumber').value = '';
+    document.getElementById('status').value = 'on-time';
+    document.getElementById('departure').value = '';
+
+    // Display updated flight list
+    displayFlights();
+});
+
+// Function to edit flight
+function editFlight(index) {
+    const flight = flights[index];
+    document.getElementById('flightNumber').value = flight.flightNumber;
+    document.getElementById('status').value = flight.status;
+    document.getElementById('departure').value = flight.departure;
+}
+
+// Function to delete flight
+function deleteFlight(index) {
+    flights.splice(index, 1);  // Remove flight from the array
+    displayFlights();  // Re-render the flight table
+}
+
+// Initial display of flights
+displayFlights();
+</script>
+
+</body>
+</html>

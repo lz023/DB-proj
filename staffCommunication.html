@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Staff Communication</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <style>
+        .main-container {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        .communication-container {
+            max-width: 700px;
+            margin: 20px auto;
+        }
+        .message-list {
+            margin-top: 30px;
+        }
+        .message-item {
+            border: 1px solid #ddd;
+            padding: 10px;
+            margin-bottom: 10px;
+        }
+        .message-item h5 {
+            margin-bottom: 5px;
+        }
+    </style>
+</head>
+<body>
+
+  <!-- Navbar -->
+  <nav class="navbar navbar-expand-lg navbar-light bg-light shadow-sm">
+    <div class="container">
+        <a class="navbar-brand" href="#">Flight Manager</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav ms-auto">
+                <!-- Flights Dropdown -->
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="flightsDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        Flights
+                    </a>
+                    <ul class="dropdown-menu" aria-labelledby="flightsDropdown">
+                        <li><a class="dropdown-item" href="editStatus.html">Edit Flight Status</a></li>
+                        <li><a class="dropdown-item" href="checkStatus.html">Check Flight Status</a></li>
+                        <li><a class="dropdown-item" href="gateAssignment.html">Gate Assignment</a></li>
+                    </ul>
+                </li>
+
+                <!-- Passenger Management Dropdown -->
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="passengerDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        Passenger Management
+                    </a>
+                    <ul class="dropdown-menu" aria-labelledby="passengerDropdown">
+                        <li><a class="dropdown-item" href="checkIn.html">Check-in</a></li>
+                        <li><a class="dropdown-item" href="baggageTracking.html">Baggage Tracking</a></li>
+                        <li><a class="dropdown-item" href="loyaltyProgram.html">Loyalty Program</a></li>
+                    </ul>
+                </li>
+
+                <!-- Staff Management Dropdown -->
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="staffDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        Staff Management
+                    </a>
+                    <ul class="dropdown-menu" aria-labelledby="staffDropdown">
+                        <li><a class="dropdown-item" href="staffScheduling.html">Scheduling</a></li>
+                        <li><a class="dropdown-item" href="staffPayroll.html">Payroll</a></li>
+                        <li><a class="dropdown-item" href="staffCommunication.html">Staff Communication</a></li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
+
+<!-- Main Content -->
+<div class="main-container">
+    <h2 class="text-center my-4">Staff Communication</h2>
+
+    <!-- Message Center -->
+    <div class="communication-container">
+        <h4 class="text-center mb-4">Send a Message to Staff</h4>
+        <form id="messageForm">
+            <div class="mb-3">
+                <label for="staffName" class="form-label">Select Staff</label>
+                <select class="form-select" id="staffName" required>
+                    <option value="" selected disabled>Choose Staff Member</option>
+                    <option value="John Doe">John Doe</option>
+                    <option value="Jane Smith">Jane Smith</option>
+                    <option value="Mark Johnson">Mark Johnson</option>
+                </select>
+            </div>
+            <div class="mb-3">
+                <label for="message" class="form-label">Message</label>
+                <textarea class="form-control" id="message" rows="4" placeholder="Write your message here..." required></textarea>
+            </div>
+            <div class="d-grid">
+                <button type="submit" class="btn btn-primary">Send Message</button>
+            </div>
+        </form>
+    </div>
+
+    <!-- Message Sent Confirmation -->
+    <div id="messageSent" class="alert alert-success d-none">
+        Message sent successfully!
+    </div>
+
+    <!-- Error Message -->
+    <div id="errorMessage" class="alert alert-danger d-none">
+        Please fill in both fields before sending the message.
+    </div>
+
+    <!-- View Messages Section -->
+    <div class="message-list">
+        <h4>View Sent Messages</h4>
+        <div id="messagesContainer">
+            <!-- Messages will be displayed here -->
+        </div>
+    </div>
+</div>
+
+<!-- JavaScript -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+<script src="app.js"></script>
+<script>
+// Sample data to simulate sent messages
+const sentMessages = [
+    { staffName: 'John Doe', message: 'Please update the flight status for AA101.', sentAt: new Date() },
+    { staffName: 'Jane Smith', message: 'Ensure the baggage claim area is ready for flight BB202.', sentAt: new Date() },
+    { staffName: 'Mark Johnson', message: 'Schedule a meeting for the new flight procedures.', sentAt: new Date() }
+];
+
+// Function to display sent messages
+function displayMessages() {
+    const messagesContainer = document.getElementById('messagesContainer');
+    messagesContainer.innerHTML = ''; // Clear previous messages
+
+    if (sentMessages.length === 0) {
+        messagesContainer.innerHTML = '<p>No messages sent yet.</p>';
+    } else {
+        sentMessages.forEach(msg => {
+            const messageItem = document.createElement('div');
+            messageItem.classList.add('message-item');
+            messageItem.innerHTML = `
+                <h5>To: ${msg.staffName}</h5>
+                <p><strong>Message:</strong> ${msg.message}</p>
+                <p><small>Sent at: ${msg.sentAt.toLocaleString()}</small></p>
+            `;
+            messagesContainer.appendChild(messageItem);
+        });
+    }
+}
+
+// Handle the message form submission
+document.getElementById('messageForm').addEventListener('submit', function(event) {
+    event.preventDefault();
+
+    const staffName = document.getElementById('staffName').value;
+    const message = document.getElementById('message').value;
+    const messageSent = document.getElementById('messageSent');
+    const errorMessage = document.getElementById('errorMessage');
+
+    // Validation: Check if both fields are filled
+    if (staffName && message) {
+        // Clear any previous error or success messages
+        errorMessage.classList.add('d-none');
+        messageSent.classList.remove('d-none');
+
+        // Simulate sending the message (this would typically be sent to a server)
+        setTimeout(() => {
+            // Add the new message to the sentMessages array
+            sentMessages.push({
+                staffName,
+                message,
+                sentAt: new Date()
+            });
+
+            // Update the message list
+            displayMessages();
+
+            // After a brief delay, hide the success message
+            messageSent.classList.add('d-none');
+            document.getElementById('messageForm').reset();  // Reset the form fields
+        }, 2000);
+    } else {
+        // Show error message if fields are not filled
+        errorMessage.classList.remove('d-none');
+    }
+});
+
+// Initialize the message list on page load
+displayMessages();
+</script>
+
+</body>
+</html>
