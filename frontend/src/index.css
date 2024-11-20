@@ -1,0 +1,369 @@
+/* General Body Styles */
+html,
+body {
+  height: 100%; /* Ensure the page takes full height */
+  overflow-x: hidden;
+}
+
+#root {
+  display: flex;
+  flex-direction: column;
+  min-height: 100%; /* Ensure content fills the page */
+}
+
+main {
+  flex: 1; /* Push footer to the bottom */
+}
+
+
+/* Dropdown Text Color */
+.nav-item.dropdown .nav-link {
+  color: #000 !important; /* Make the main dropdown link text black */
+}
+
+.nav-item.dropdown .dropdown-menu .dropdown-item {
+  color: #000; /* Make dropdown items text black */
+}
+
+.nav-item.dropdown .nav-link:hover,
+.nav-item.dropdown .dropdown-item:hover {
+  color: #007bff; /* Optional: Change color on hover */
+}
+/* Navbar Brand Text Color */
+.navbar-brand {
+  color: #000 !important; /* Make the navbar brand text black */
+}
+
+/* Optional: Navbar Brand Hover Effect */
+.navbar-brand:hover {
+  color: #007bff; /* Optional: Change color on hover to blue */
+}
+
+
+/* Navbar Styling */
+.navbar {
+  background-color: #007bff;
+  padding: 1rem 0;
+}
+
+.navbar-brand {
+  font-weight: bold;
+  color: #ffffff;
+  font-size: 1.5rem;
+  letter-spacing: 1px;
+}
+
+.navbar-nav .nav-link {
+  color: #ffffff;
+  margin-right: 20px;
+  font-size: 1.1rem;
+  text-transform: uppercase;
+}
+
+.navbar-nav .nav-link:hover {
+  color: #ffd700;
+}
+
+/* Header Section */
+header {
+  background-color: #ffffff;
+  padding: 2rem 0;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+header img {
+  max-width: 150px;
+}
+
+/* Hero Section */
+#hero {
+  background-color: #007bff;
+  color: white;
+  padding: 4rem 0;
+  text-align: center;
+}
+
+#hero h2 {
+  font-size: 2.5rem;
+  font-weight: bold;
+}
+
+#hero p {
+  font-size: 1.2rem;
+  margin-bottom: 2rem;
+}
+
+#hero img {
+  max-width: 100%;
+  height: auto;
+  margin-top: 2rem;
+}
+.main-container {
+  max-width: 800px;
+  margin: 0 auto;
+}
+.status-container {
+  max-width: 700px;
+  margin: 20px auto;
+}
+
+/* Flight Status Search */
+#flightStatus {
+  background-color: #ffffff;
+  padding: 2rem;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  margin-top: 2rem;
+}
+
+#flightStatus h2 {
+  font-size: 2rem;
+  color: #333;
+}
+
+#flightStatus p {
+  color: #777;
+}
+
+.input-group {
+  max-width: 600px;
+  margin: 0 auto 1.5rem auto;
+}
+.check-in-container {
+  max-width: 600px;
+  margin: 20px auto;
+  padding: 20px;
+  background-color: #f8f9fa;
+  border-radius: 8px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+.btn-custom {
+  background-color: #007bff;
+  color: white;
+}
+.baggage-container {
+  max-width: 700px;
+  margin: 20px auto;
+  padding: 20px;
+  background-color: #f8f9fa;
+  border-radius: 8px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+.loyalty-container {
+  max-width: 700px;
+  margin: 20px auto;
+  padding: 20px;
+  background-color: #f8f9fa;
+  border-radius: 8px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+.input-group input {
+  border-radius: 20px 0 0 20px;
+  padding: 10px;
+  border: 1px solid #ddd;
+}
+
+.input-group button {
+  border-radius: 0 20px 20px 0;
+  padding: 10px 20px;
+  background-color: #007bff;
+  border: 1px solid #007bff;
+  color: white;
+  font-size: 1rem;
+}
+
+.input-group button:hover {
+  background-color: #0056b3;
+}
+
+.d-flex button {
+  border-radius: 20px;
+  font-size: 1rem;
+  margin: 0.5rem;
+  padding: 10px 20px;
+  transition: background-color 0.3s ease-in-out;
+}
+
+.d-flex button:hover {
+  background-color: #007bff;
+  color: white;
+}
+
+/* Book Ticket and Passenger Management Section */
+#bookTicket, #passengerManagement {
+  background-color: #ffffff;
+  padding: 2rem;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  text-align: center;
+  margin-top: 2rem;
+}
+
+#bookTicket h2, #passengerManagement h2 {
+  color: #333;
+  font-size: 2rem;
+  margin-bottom: 1rem;
+}
+
+#bookTicket button, #passengerManagement button {
+  background-color: #007bff;
+  color: white;
+  border: none;
+  padding: 12px 25px;
+  font-size: 1.1rem;
+  border-radius: 30px;
+  transition: background-color 0.3s ease-in-out;
+}
+
+#bookTicket button:hover, #passengerManagement button:hover {
+  background-color: #0056b3;
+}
+
+/* Live Flight Status & Notifications Section */
+#liveFlightStatus, #alerts {
+  background-color: #ffffff;
+  padding: 2rem;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  margin-top: 2rem;
+}
+
+#liveFlightStatus h2, #alerts h2 {
+  font-size: 2rem;
+  color: #333;
+  margin-bottom: 1rem;
+}
+
+#liveFlightUpdates, #notificationMessages {
+  font-size: 1rem;
+  color: #555;
+}
+
+/* User Login/Signup */
+#userLogin {
+  background-color: #ffffff;
+  padding: 2rem;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  text-align: center;
+  margin-top: 2rem;
+}
+
+#userLogin button {
+  background-color: #007bff;
+  color: white;
+  border: none;
+  padding: 12px 30px;
+  font-size: 1.2rem;
+  border-radius: 25px;
+  transition: background-color 0.3s ease-in-out;
+}
+
+#userLogin button:hover {
+  background-color: #0056b3;
+}
+
+/* About Section */
+#about {
+  background-color: #f8f9fa;
+  padding: 2rem;
+  text-align: center;
+  margin-top: 2rem;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+#about h2 {
+  font-size: 2rem;
+  color: #333;
+  margin-bottom: 1rem;
+}
+
+/* Contact Section */
+#contact {
+  background-color: #ffffff;
+  padding: 2rem;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  margin-top: 2rem;
+  text-align: center;
+}
+
+#contact h2 {
+  font-size: 2rem;
+  color: #333;
+  margin-bottom: 1rem;
+}
+
+/* Adjusting input and textarea size and centering */
+#contact form input, #contact form textarea {
+  width: 60%; /* Adjust the width to be smaller */
+  max-width: 500px; /* Set a maximum width */
+  padding: 10px;
+  margin-bottom: 1rem;
+  border-radius: 10px;
+  border: 1px solid #ddd;
+  font-size: 1rem;
+  display: block;
+  margin-left: auto; /* Center align the element */
+  margin-right: auto; /* Center align the element */
+}
+
+/* Button styling */
+#contact form button {
+  background-color: #007bff;
+  color: white;
+  border: none;
+  padding: 12px 25px;
+  font-size: 1.1rem;
+  border-radius: 25px;
+  transition: background-color 0.3s ease-in-out;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+#contact form button:hover {
+  background-color: #0056b3;
+}
+
+/* Footer Section */
+footer {
+  background-color: #333;
+  color: white;
+  padding: 1rem 0;
+  text-align: center;
+  margin-top: 2rem;
+}
+
+footer ul {
+  list-style: none;
+  padding: 0;
+}
+
+footer ul li {
+  display: inline;
+  margin-right: 20px;
+}
+
+footer ul li a {
+  color: white;
+  text-decoration: none;
+  font-size: 1rem;
+}
+
+footer ul li a:hover {
+  color: #ffd700;
+}
+.check-in-container {
+  max-width: 600px;
+  margin: 20px auto;
+  padding: 20px;
+  background-color: #f8f9fa;
+  border-radius: 8px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+.btn-custom {
+  background-color: #007bff;
+  color: white;
+}

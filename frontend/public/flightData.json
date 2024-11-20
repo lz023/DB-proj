@@ -1,0 +1,21 @@
+[
+    {
+      "flightNumber": "AB123",
+      "status": "On Time",
+      "departure": "2024-11-21T10:30:00Z",
+      "arrival": "2024-11-21T14:00:00Z"
+    },
+    {
+      "flightNumber": "CD456",
+      "status": "Delayed",
+      "departure": "2024-11-21T12:00:00Z",
+      "arrival": "2024-11-21T16:30:00Z"
+    },
+    {
+      "flightNumber": "EF789",
+      "status": "Cancelled",
+      "departure": "2024-11-21T15:00:00Z",
+      "arrival": "2024-11-21T18:30:00Z"
+    }
+  ]
+  

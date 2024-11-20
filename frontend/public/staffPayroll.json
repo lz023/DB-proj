@@ -1,0 +1,6 @@
+[
+    { "name": "John Doe", "role": "Pilot", "salary": 6000, "bonus": 1000 },
+    { "name": "Jane Smith", "role": "Flight Attendant", "salary": 3500, "bonus": 500 },
+    { "name": "Mark Johnson", "role": "Ground Crew", "salary": 2500, "bonus": 300 }
+  ]
+  

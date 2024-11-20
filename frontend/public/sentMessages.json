@@ -1,0 +1,18 @@
+[
+    {
+      "staffName": "John Doe",
+      "message": "Please update the flight status for AA101.",
+      "sentAt": "2024-11-20T10:00:00Z"
+    },
+    {
+      "staffName": "Jane Smith",
+      "message": "Ensure the baggage claim area is ready for flight BB202.",
+      "sentAt": "2024-11-20T11:00:00Z"
+    },
+    {
+      "staffName": "Mark Johnson",
+      "message": "Schedule a meeting for the new flight procedures.",
+      "sentAt": "2024-11-20T12:00:00Z"
+    }
+  ]
+  
